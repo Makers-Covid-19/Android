@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#df6e57</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#3F02A7</color>
+
+    <color name="white">#fff</color>
+
+    <color name="textColor">#38415C</color>
+    <color name="navSelect">#202F5A</color>
+    <color name="navDefault">#6D7278</color>
+
+
+    <!--splash screen-->
+    <color name="colorSplash">#3F02A7</color>
+
+</resources>

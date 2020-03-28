@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Covid Acil</string>
+
+    <string name="phones">Numaralar</string>
+    <string name="global_phones">Ülke Geneli</string>
+
+    <string name="nav_calls">Aramalar</string>
+    <string name="nav_my_contacts">Rehberim</string>
+    <string name="nav_settings">Ayarlar</string>
+
+    <string name="recommend_to_friends">Arkadaşlarına bizi tavsiye edin</string>
+    <string name="notification_setting">Bildirim Ayarları</string>
+    <string name="fallow">TAKİP EDİN</string>
+    <string name="context">Ayvalık Yerel İnsiyatif</string>
+    <string name="municipality">Belediye</string>
+    <string name="from">from</string>
+    <string name="from_desc_two">Covid-19 Gönüllüsü bir\ngrup developer</string>
+    <string name="from_desc_one"></string>
+
+    <string name="whatsapp_hi">Merhaba</string>
+    <string name="whatsapp_info">Whatsapp uygulaması yüklü değil.</string>
+
+    <string name="network_close">İnternetiniz Kapalı!</string>
+    <string name="network_message">Lütfen internetinizi açıp tekrar uygulamayı açın.</string>
+    <string name="ok">Tamam</string>
+
+
+</resources>

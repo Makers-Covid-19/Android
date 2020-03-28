@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  * Created by Serhat Bekir AK on 26.03.2020 21:23
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 09.03.2020 10:22
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <declare-styleable name="RoundedImageView">
+        <attr name="corner_radius" format="dimension" />
+        <attr name="border_width_rn" format="dimension" />
+        <attr name="border_color_rn" format="color" />
+        <attr name="mutate_background" format="boolean" />
+        <attr name="oval" format="boolean" />
+        <attr name="android:scaleType" />
+    </declare-styleable>
+</resources>

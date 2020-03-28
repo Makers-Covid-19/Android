@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~  * Created by Serhat Bekir AK on 26.03.2020 23:11
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 26.03.2020 23:01
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/shadow_bg"
+    android:layout_marginLeft="18dp"
+    android:layout_marginRight="18dp"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/phone"
+        android:layout_toLeftOf="@+id/phone"
+        android:gravity="center|left"
+        android:text="BELEDİYE"
+        android:textColor="@color/textColor"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/phone"
+        android:layout_toLeftOf="@+id/phone"
+        android:gravity="center|left"
+        android:text="Tüm mahalleler"
+        android:textColor="@color/textColor"
+        android:textSize="13dp" />
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="0505 806 77 14"
+        android:textColor="@color/textColor"
+        android:textSize="17dp" />
+
+
+</RelativeLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~  * Created by Serhat Bekir AK on 26.03.2020 21:18
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 26.03.2020 21:14
+  -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="14.3dp" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+            <solid android:color="#10CCCCCC" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <corners android:radius="14.3dp" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+            <solid android:color="#20CCCCCC" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <corners android:radius="14.3dp" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+            <solid android:color="#40CCCCCC" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <corners android:radius="14.3dp" />
+            <padding
+                android:bottom="1dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="0dp" />
+            <solid android:color="#50CCCCCC" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <corners android:radius="14.3dp" />
+            <padding
+                android:bottom="1dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="0dp" />
+            <solid android:color="#60CCCCCC" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <corners android:radius="14.3dp" />
+            <solid android:color="#ffffff" />
+        </shape>
+    </item>
+</layer-list>

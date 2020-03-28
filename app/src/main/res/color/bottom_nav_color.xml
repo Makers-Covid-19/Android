@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  * Created by Serhat Bekir AK on 27.03.2020 00:11
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 25.03.2020 23:38
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="@color/navSelect" />
+    <item android:state_checked="false" android:color="@color/navDefault"/>
+</selector>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~  * Created by Serhat Bekir AK on 26.03.2020 21:50
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 11.03.2020 09:50
+  -->
+
+<resources>
+
+    <!--important_phone_item-->
+
+    <dimen name="item_in_space_between">5dp</dimen>
+
+</resources>

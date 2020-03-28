@@ -1,0 +1,16 @@
+<!--
+  ~  * Created by Serhat Bekir AK on 26.03.2020 21:48
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 26.03.2020 21:48
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="23dp"
+    android:height="21dp"
+    android:viewportWidth="23"
+    android:viewportHeight="21">
+  <path
+      android:pathData="M11.5,17.25L4.7405,20.8037L6.0314,13.2768L0.5628,7.9463L8.1202,6.8481L11.5,0L14.8798,6.8481L22.4371,7.9463L16.9686,13.2768L18.2595,20.8037L11.5,17.25Z"
+      android:fillColor="#F7B500"
+      android:fillType="evenOdd"/>
+</vector>
