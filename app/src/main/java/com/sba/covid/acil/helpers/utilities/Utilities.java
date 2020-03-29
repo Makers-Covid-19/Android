@@ -93,7 +93,7 @@ public class Utilities {
 
     }
 
-    public static String[] ProvinceArrayToStringArray(ArrayList<ProvinceModel> list) {
+    public static String[] ProvinceArrayToStringArray(ArrayList<ProvinceModel> list) { //todo minifyEnabled crash
         ArrayList<String> stringArray = new ArrayList<>();
         for (ProvinceModel val : list) {
             if (val.getId() != 0) { //response model bug!

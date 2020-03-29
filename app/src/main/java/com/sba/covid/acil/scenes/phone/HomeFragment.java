@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sba.covid.acil.R;
 import com.sba.covid.acil.api.core.ResponseInterface;
@@ -23,7 +22,6 @@ import com.sba.covid.acil.api.model.districts.DistrictModel;
 import com.sba.covid.acil.api.model.districts.DistrictRequest;
 import com.sba.covid.acil.api.model.main.MainPhones;
 import com.sba.covid.acil.api.model.main.MainPhonesRequest;
-import com.sba.covid.acil.api.model.provinces.ProvinceModel;
 import com.sba.covid.acil.api.model.provinces.ProvincesRequest;
 import com.sba.covid.acil.helpers.Constants;
 import com.sba.covid.acil.helpers.core.BaseFragment;
@@ -77,7 +75,7 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.phone_fragment, container, false);
+        view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
         setting.setOnClickListener((View v) -> mFragmentManager.addFragment(new SettingsFragment()));
         dialogCity.setOnClickListener((View v) -> showDialog(false));
