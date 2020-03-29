@@ -41,7 +41,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.sba.covid.acil.api.model.districts.DistrictModel;
 import com.sba.covid.acil.api.model.main.MainPhones;
+import com.sba.covid.acil.api.model.provinces.ProvinceModel;
 import com.sba.covid.acil.helpers.Constants;
 
 public class TinyDB {
@@ -79,6 +81,49 @@ public class TinyDB {
         String json = getString(Constants.PHONE_LIST_OBJECT + id);
         return new Gson().fromJson(json, MainPhones.class);
     }
+
+    public void putListCity(ArrayList<ProvinceModel> objArray) {
+        checkForNullKey(Constants.CITIES);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for (ProvinceModel obj : objArray) {
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(Constants.CITIES, objStrings);
+    }
+
+    public ArrayList<ProvinceModel> getListCity() {
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = getListString(Constants.CITIES);
+        ArrayList<ProvinceModel> objects = new ArrayList<>();
+        for (String jObjString : objStrings) {
+            ProvinceModel value = gson.fromJson(jObjString, ProvinceModel.class);
+            objects.add(value);
+        }
+        return objects;
+    }
+
+    public void putListDistrict(ArrayList<DistrictModel> objArray, int id) {
+        checkForNullKey(Constants.DISTRICT + "_" + id);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for (DistrictModel obj : objArray) {
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(Constants.DISTRICT + "_" + id, objStrings);
+    }
+
+    public ArrayList<DistrictModel> getListDistrict(String id) {
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = getListString(Constants.DISTRICT + "_" + id);
+        ArrayList<DistrictModel> objects = new ArrayList<>();
+        for (String jObjString : objStrings) {
+            DistrictModel value = gson.fromJson(jObjString, DistrictModel.class);
+            objects.add(value);
+        }
+        return objects;
+    }
+
 
     /**
      * Decodes the Bitmap from 'path' and returns it

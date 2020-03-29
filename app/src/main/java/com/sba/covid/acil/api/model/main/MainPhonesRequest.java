@@ -35,13 +35,14 @@ public class MainPhonesRequest extends MasterAPI {
     }
 
     public void request(int districtId) {
-        if (checkRequest(tinyDB.getLong(Constants.PHONE_REQUEST_LAST_TIME + districtId, 0)) && myFragmentManager.isOnline()) {
+        if (checkRequest(tinyDB.getLong(Constants.PHONE_REQUEST_LAST_TIME + districtId, 0)) && myFragmentManager.isOnline() && districtId != 0) {
             this.districtId = districtId + "";
             myFragmentManager.showProgress();
             HashMap<String, String> params = new HashMap<>();
             params.put("district_id", districtId + "");
             scRestManager.get(url, params, url, newsRequest);
         } else {
+            myFragmentManager.hideProgress();
             responseInterface.success(null);
         }
     }
@@ -49,7 +50,7 @@ public class MainPhonesRequest extends MasterAPI {
     StringRequestListener newsRequest = new StringRequestListener() {
         @Override
         public void onResponse(String response) {
-            response = "{\"httpStatus\":\"OK\",\"timestamp\":\"2020-03-28T00:35:33.3426992\",\"message\":\"succes\",\"data\":{\"majorPhones\":[{\"id\":32,\"name\":\"SMO\",\"category\":{\"id\":1,\"name\":\"Manav\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":{\"id\":1161,\"name\":\"AYVALIK\"},\"phone\":\"05425287131\"},{\"id\":25,\"name\":\"Büyükşehir Belediye\",\"category\":{\"id\":0,\"name\":\"Tüm ihtiyaçlar\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":null,\"phone\":\"4441066\"}],\"publicPhones\":[{\"id\":33,\"name\":\"SMO\",\"category\":{\"id\":1,\"name\":\"Manav\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":{\"id\":1161,\"name\":\"AYVALIK\"},\"phone\":\"05442926812\"}],\"globalPhones\":[{\"id\":28,\"name\":\"Jandarma\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"156\"},{\"id\":29,\"name\":\"Corona Danışma Hattı\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"184\"},{\"id\":26,\"name\":\"Ambulans\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"112\"},{\"id\":27,\"name\":\"Polis\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"155\"}]}}";
+            //response = "{\"httpStatus\":\"OK\",\"timestamp\":\"2020-03-28T00:35:33.3426992\",\"message\":\"succes\",\"data\":{\"majorPhones\":[{\"id\":32,\"name\":\"SMO\",\"category\":{\"id\":1,\"name\":\"Manav\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":{\"id\":1161,\"name\":\"AYVALIK\"},\"phone\":\"05425287131\"},{\"id\":25,\"name\":\"Büyükşehir Belediye\",\"category\":{\"id\":0,\"name\":\"Tüm ihtiyaçlar\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":null,\"phone\":\"4441066\"}],\"publicPhones\":[{\"id\":33,\"name\":\"SMO\",\"category\":{\"id\":1,\"name\":\"Manav\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":{\"id\":1161,\"name\":\"AYVALIK\"},\"phone\":\"05442926812\"}],\"globalPhones\":[{\"id\":28,\"name\":\"Jandarma\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"156\"},{\"id\":29,\"name\":\"Corona Danışma Hattı\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"184\"},{\"id\":26,\"name\":\"Ambulans\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"112\"},{\"id\":27,\"name\":\"Polis\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"155\"}]}}";
             myFragmentManager.hideProgress();
             ResponseError error = new Gson().fromJson(response, ResponseError.class);
             if (error.isSuccess()) {
@@ -69,6 +70,7 @@ public class MainPhonesRequest extends MasterAPI {
 
         @Override
         public void onError(ANError ANError) {
+            myFragmentManager.hideProgress();
             responseInterface.error("FAIL");
             checkResponse(ANError, responseInterface);
         }

@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
+        android:background="#F8F8F8"
         android:orientation="vertical">
 
         <ImageView
@@ -46,6 +47,7 @@
                         android:orientation="horizontal">
 
                         <RelativeLayout
+                            android:id="@+id/select_city"
                             android:layout_width="0dp"
                             android:layout_height="45dp"
                             android:layout_gravity="center"
@@ -65,6 +67,7 @@
                                 android:src="@drawable/ic_arrow_down" />
 
                             <TextView
+                                android:id="@+id/city"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
@@ -74,13 +77,14 @@
                                 android:layout_toStartOf="@+id/arrow"
                                 android:layout_toLeftOf="@+id/arrow"
                                 android:gravity="center"
-                                android:text="Balıkesir"
+                                android:text="@string/selected"
                                 android:textColor="@color/textColor"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/select_district"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1">
@@ -97,6 +101,7 @@
                                 android:src="@drawable/ic_arrow_down" />
 
                             <TextView
+                                android:id="@+id/district"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
@@ -106,7 +111,7 @@
                                 android:layout_toStartOf="@+id/arrow_provinces"
                                 android:layout_toLeftOf="@+id/arrow_provinces"
                                 android:gravity="center"
-                                android:text="Ayvalık"
+                                android:text="@string/select_district"
                                 android:textColor="@color/textColor"
                                 android:textStyle="bold" />
 
@@ -136,9 +141,10 @@
                     app:spanCount="2" />
 
                 <TextView
+                    android:id="@+id/phones"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorTwo"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
@@ -157,7 +163,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorTwo"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"

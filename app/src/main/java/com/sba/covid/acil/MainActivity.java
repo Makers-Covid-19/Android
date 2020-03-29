@@ -16,19 +16,20 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.gson.Gson;
+import com.sba.covid.acil.api.model.main.MainPhones;
 import com.sba.covid.acil.helpers.Constants;
 import com.sba.covid.acil.helpers.core.BaseActivity;
 import com.sba.covid.acil.helpers.core.MyFragmentManager;
-import com.sba.covid.acil.helpers.dialog.DefaultDialog;
-import com.sba.covid.acil.scenes.contact.ContactFragment;
 import com.sba.covid.acil.scenes.phone.HomeFragment;
-import com.sba.covid.acil.scenes.settings.SettingsFragment;
 
 public class MainActivity extends BaseActivity implements MyFragmentManager, FragmentManager.OnBackStackChangedListener {
 
@@ -42,14 +43,24 @@ public class MainActivity extends BaseActivity implements MyFragmentManager, Fra
         ButterKnife.bind(this);
         //bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-        if (!tinydb.getString(Constants.DISTRICT).equals("")) {
-            replaceFragment(new HomeFragment());
-        } else {
-            if (!isOnline())
-                DefaultDialog.showNetworkDialog(this);
-            else
-                replaceFragment(new HomeFragment());
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        Constants.FIREBASEID = task.getResult().getToken();
+                    }
+                });
+        if (tinydb.getString(Constants.SELECT_DISTRICT).equals("")) { //Default Data
+            String json = "{\"majorPhones\":[],\"publicPhones\":[],\"globalPhones\":[{\"id\":28,\"name\":\"Jandarma\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"156\"},{\"id\":29,\"name\":\"Corona Danışma Hattı\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"184\"},{\"id\":26,\"name\":\"Ambulans\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"112\"},{\"id\":27,\"name\":\"Polis\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"155\"}]}";
+            MainPhones model = new Gson().fromJson(json, MainPhones.class);
+            tinydb.putString(Constants.SELECT_CITY, "-1");
+            tinydb.putString(Constants.SELECT_DISTRICT, "-1");
+            tinydb.putListHomePhone(model, "-1");
         }
+        replaceFragment(new HomeFragment());
     }
 
     public boolean isOnline() {
@@ -108,8 +119,10 @@ public class MainActivity extends BaseActivity implements MyFragmentManager, Fra
     @Override
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayoutMain);
-        if (!(fragment instanceof HomeFragment) && !(fragment instanceof ContactFragment))//&& !(fragment instanceof SettingsFragment)
+        if (!(fragment instanceof HomeFragment))
             super.onBackPressed();
+        else
+            this.finish();
     }
 
 //    BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =

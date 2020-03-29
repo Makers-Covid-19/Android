@@ -1,0 +1,16 @@
+<!--
+  ~  * Created by Serhat Bekir AK on 29.03.2020 00:30
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 29.03.2020 00:30
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="12dp"
+    android:height="16dp"
+    android:viewportWidth="12"
+    android:viewportHeight="16">
+  <path
+      android:pathData="M11.2361,1.88L4.875,8L11.2361,14.12L9.2778,16L0.9444,8L9.2778,-0L11.2361,1.88Z"
+      android:fillColor="#000000"
+      android:fillType="evenOdd"/>
+</vector>

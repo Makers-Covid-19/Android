@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/bottom_navigation"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        android:background="@color/white"-->
+    <!--        app:elevation="20dp"-->
+    <!--        app:itemIconTint="@color/bottom_nav_color"-->
+    <!--        app:itemTextColor="@color/bottom_nav_color"-->
+    <!--        app:menu="@menu/bottom_navigation_menu" />-->
+
     <FrameLayout
         android:id="@+id/frameLayoutMain"
         android:layout_width="fill_parent"
@@ -13,29 +26,21 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true" />
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottom_navigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        android:background="@color/white"-->
-<!--        app:elevation="20dp"-->
-<!--        app:itemIconTint="@color/bottom_nav_color"-->
-<!--        app:itemTextColor="@color/bottom_nav_color"-->
-<!--        app:menu="@menu/bottom_navigation_menu" />-->
-
     <ProgressBar
         android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         android:indeterminateTint="@color/colorPrimary"
+        android:padding="180dp"
+        android:clickable="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
 </RelativeLayout>

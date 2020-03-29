@@ -14,9 +14,7 @@ public class APIConstants {
     public static String PROVINCES = BASE_URL + "provinces";
     //districts
     public static String DISTRICTS = BASE_URL + "districts";
-    //neighborhoods
-    public static String NAIGHBORHOODS = BASE_URL + "neighborhoods";
     //phones
-    public static String PHONES = BASE_URL + "phones";
+    public static String PHONES = BASE_URL + "phones/id";
 
 }

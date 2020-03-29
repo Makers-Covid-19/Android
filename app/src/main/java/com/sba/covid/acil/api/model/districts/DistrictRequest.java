@@ -1,10 +1,10 @@
 /*
- *  * Created by Serhat Bekir AK on 26.03.2020 00:12
+ *  * Created by Serhat Bekir AK on 29.03.2020 03:06
  *  * Copyright (c) 2020 . All rights reserved.
- *  * Last modified 26.03.2020 00:12
+ *  * Last modified 29.03.2020 02:58
  */
 
-package com.sba.covid.acil.api.model.provinces;
+package com.sba.covid.acil.api.model.districts;
 
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
@@ -21,20 +21,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ProvincesRequest extends MasterAPI {
+public class DistrictRequest extends MasterAPI {
     ResponseInterface responseInterface;
     MyFragmentManager myFragmentManager;
-    private String url = APIConstants.PROVINCES;
+    private String url = APIConstants.DISTRICTS;
+    private int id;
 
-    public ProvincesRequest(ResponseInterface responseInterface, MyFragmentManager myFragmentManager) {
+    public DistrictRequest(ResponseInterface responseInterface, MyFragmentManager myFragmentManager) {
         this.responseInterface = responseInterface;
         this.myFragmentManager = myFragmentManager;
     }
 
-    public void request() {
+    public void request(int id) {
+        this.id = id;
         myFragmentManager.showProgress();
         HashMap<String, String> params = new HashMap<>();
-        scRestManager.get(url, params, url, newsRequest);
+        scRestManager.get(url + "/" + id, params, url + "/" + id, newsRequest);
     }
 
     StringRequestListener newsRequest = new StringRequestListener() {
@@ -42,18 +44,17 @@ public class ProvincesRequest extends MasterAPI {
         public void onResponse(String response) {
             myFragmentManager.hideProgress();
             ResponseError error = new Gson().fromJson(response, ResponseError.class);
-            if(error.isSuccess()) {
+            if (error.isSuccess()) {
                 try {
                     String json = new JSONObject(response).getString("data");
-                    ProvinceModel[] provinceModel = new Gson().fromJson(json, ProvinceModel[].class);
-                    ArrayList<ProvinceModel> model = new ArrayList<>(Arrays.asList(provinceModel));
-                    tinyDB.putListCity(model);
+                    DistrictModel[] DistrictModel = new Gson().fromJson(json, DistrictModel[].class);
+                    ArrayList<DistrictModel> model = new ArrayList<>(Arrays.asList(DistrictModel));
+                    tinyDB.putListDistrict(model, id);
                     responseInterface.success(model);
                 } catch (Exception e) {
                     responseInterface.error("FAIL");
                 }
-            }
-            else {
+            } else {
                 responseInterface.error("FAIL");
             }
         }

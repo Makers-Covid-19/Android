@@ -18,10 +18,22 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.sba.covid.acil.R;
+import com.sba.covid.acil.api.model.districts.DistrictModel;
+import com.sba.covid.acil.api.model.provinces.ProvinceModel;
+import com.sba.covid.acil.helpers.dialog.DefaultDialog;
+
+import java.util.ArrayList;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import es.dmoral.toasty.Toasty;
 
 public class Utilities {
 
@@ -35,16 +47,30 @@ public class Utilities {
     }
 
     public static void callPhone(Context context, String phone) {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, 1377);
-        } else {
-            try {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
-                context.startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
+        Dexter.withActivity((Activity) context)
+                .withPermission(Manifest.permission.CALL_PHONE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                        context.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if (response.isPermanentlyDenied()) {
+                            DefaultDialog.permissionsCallPhoneDialog(context);
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
+
     }
 
     public static int getDrawableByName(Context context, int type) {
@@ -65,6 +91,24 @@ public class Utilities {
                 return context.getResources().getIdentifier("ic_launcher", "mipmap", context.getPackageName());
         }
 
+    }
+
+    public static String[] ProvinceArrayToStringArray(ArrayList<ProvinceModel> list) {
+        ArrayList<String> stringArray = new ArrayList<>();
+        for (ProvinceModel val : list) {
+            if (val.getId() != 0) { //response model bug!
+                stringArray.add(val.getName());
+            }
+        }
+        return stringArray.toArray(new String[0]);
+    }
+
+    public static String[] DistrictArrayToStringArray(ArrayList<DistrictModel> list) {
+        ArrayList<String> stringArray = new ArrayList<>();
+        for (DistrictModel val : list) {
+            stringArray.add(val.getName());
+        }
+        return stringArray.toArray(new String[0]);
     }
 
     /*SocialMedia Show*/
@@ -94,7 +138,25 @@ public class Utilities {
 
     }
 
-    public static void showWhatsApp(Activity activity) {
+    public static void showWhatsApp(Activity activity, String number) {
+        Uri uri = Uri.parse("smsto:" + number);
+        Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+        i.setPackage("com.whatsapp");
+        activity.startActivity(Intent.createChooser(i, ""));
+    }
+
+    /*Share*/
+
+    public static void share(Activity activity, String content) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+        sendIntent.setType("text/plain");
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        activity.startActivity(shareIntent);
+    }
+
+    public static void shareWhatsApp(Activity activity) {
         PackageManager pm = activity.getPackageManager();
         try {
             Intent waIntent = new Intent(Intent.ACTION_SEND);
@@ -105,8 +167,7 @@ public class Utilities {
             waIntent.putExtra(Intent.EXTRA_TEXT, text);
             activity.startActivity(Intent.createChooser(waIntent, "Share"));
         } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.whatsapp_info), Toast.LENGTH_SHORT).show();
+            Toasty.info(activity.getApplicationContext(), activity.getString(R.string.whatsapp_info)).show();
         }
-
     }
 }

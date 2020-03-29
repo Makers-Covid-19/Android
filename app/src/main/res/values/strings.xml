@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Covid Acil</string>
+    <string name="app_share">Covid Acil Uygulaması: https://play.google.com/store/apps/details?id=com.sba.covid.acil</string>
 
     <string name="phones">Numaralar</string>
     <string name="global_phones">Ülke Geneli</string>
@@ -21,8 +22,21 @@
     <string name="whatsapp_info">Whatsapp uygulaması yüklü değil.</string>
 
     <string name="network_close">İnternetiniz Kapalı!</string>
-    <string name="network_message">Lütfen internetinizi açıp tekrar uygulamayı açın.</string>
+    <string name="network_message">Lütfen internet bağlantınızı kontrol ediniz!</string>
+    <string name="network_city_message">Şehir seçimi için internetinizi açmanız gerekmektedir.</string>
+    <string name="network_district_message">İlçe seçimi çin internetinizi açmanız gerekmektedir.</string>
     <string name="ok">Tamam</string>
+    <string name="cancel">Vazgeç</string>
+
+    <string name="show_permission">İzinleri Aç</string>
+    <string name="permission_title">Erişim İzniniz Açık Değil</string>
+    <string name="permission_info">İşlemi gerçekleştirmek için gerekli izinleri vermelisiniz.</string>
+
+    <string name="select_city">Şehir Seçiniz</string>
+    <string name="select_district">İlçe Seçiniz</string>
+    <string name="info_city_context">Lütfen Şehir Seçiniz!</string>
+    <string name="selected">Seçiniz</string>
+
 
 
 </resources>
