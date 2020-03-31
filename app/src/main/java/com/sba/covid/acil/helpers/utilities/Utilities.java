@@ -8,11 +8,15 @@ package com.sba.covid.acil.helpers.utilities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,12 +31,15 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.sba.covid.acil.R;
 import com.sba.covid.acil.api.model.districts.DistrictModel;
 import com.sba.covid.acil.api.model.provinces.ProvinceModel;
+import com.sba.covid.acil.helpers.db.tinydb.TinyDB;
 import com.sba.covid.acil.helpers.dialog.DefaultDialog;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import es.dmoral.toasty.Toasty;
 
 public class Utilities {
@@ -47,7 +54,6 @@ public class Utilities {
     }
 
     public static void callPhone(Context context, String phone) {
-
         Dexter.withActivity((Activity) context)
                 .withPermission(Manifest.permission.CALL_PHONE)
                 .withListener(new PermissionListener() {
@@ -69,8 +75,6 @@ public class Utilities {
                         token.continuePermissionRequest();
                     }
                 }).check();
-
-
     }
 
     public static int getDrawableByName(Context context, int type) {
@@ -111,6 +115,45 @@ public class Utilities {
         return stringArray.toArray(new String[0]);
     }
 
+    public static Boolean clipboardCopy(Context context, String text) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+        }
+        return true;
+    }
+
+    public static void changeLanguage(Activity mActivity, String lang) {
+        if (!new TinyDB(mActivity).getString("language").equals(lang)) {
+            Locale locale = new Locale(lang);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            mActivity.getBaseContext().getResources().updateConfiguration(config, mActivity.getBaseContext().getResources().getDisplayMetrics());
+            new TinyDB(mActivity).putString("language", lang);
+            restartActivity(mActivity);
+        }
+    }
+
+    public static void updateLanguage(Context ctx, String lang) {
+        Configuration cfg = new Configuration();
+        if (!TextUtils.isEmpty(lang))
+            cfg.locale = new Locale(lang);
+        else
+            cfg.locale = Locale.getDefault();
+        ctx.getResources().updateConfiguration(cfg, null);
+    }
+
+    public static void restartActivity(Activity mActivity) {
+        Intent intent = mActivity.getIntent();
+        mActivity.finish();
+        mActivity.startActivity(intent);
+    }
+
     /*SocialMedia Show*/
 
     public static void showTwitter(Activity activity, String userId) {
@@ -135,7 +178,10 @@ public class Utilities {
 
     public static void showYoutube(Activity activity, String id) {
         activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/" + id)));
+    }
 
+    public static void showBrowse(Activity activity, String url) {
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
     public static void showWhatsApp(Activity activity, String number) {

@@ -12,17 +12,20 @@
     android:layout_marginBottom="10dp"
     android:gravity="center">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="167dp"
-        android:layout_height="209dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
         android:background="@drawable/shadow_bg"
         android:padding="10dp">
 
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:scaleType="fitEnd"
             android:layout_above="@+id/image"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -68,6 +71,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/item_in_space_between"
             android:gravity="center"
+            android:lines="1"
             android:text="Tüm İhtiyaçlar"
             android:textSize="13dp"
             android:textColor="@color/textColor"
@@ -83,10 +87,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
+            android:lines="2"
             android:gravity="center"
             android:textStyle="italic"
             android:textColor="@color/textColor"
             android:text="Büyükşehir belediye Genel Çağrı Merkezi"
             android:textSize="13dp" />
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

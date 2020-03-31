@@ -13,9 +13,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
+import android.widget.ArrayAdapter;
 
 import com.sba.covid.acil.MainActivity;
 import com.sba.covid.acil.R;
+import com.sba.covid.acil.helpers.utilities.Utilities;
+
+import java.util.Arrays;
 
 public class DefaultDialog {
 
@@ -35,7 +39,6 @@ public class DefaultDialog {
     public static void showNetworkDialog(Context context) {
         showNetworkDialog(context, context.getResources().getString(R.string.network_message));
     }
-
 
     public static void permissionsCallPhoneDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -57,5 +60,36 @@ public class DefaultDialog {
             }
         });
         builder.show();
+    }
+
+    public static void languageDialog(Activity activity) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(activity);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(activity, android.R.layout.select_dialog_item);
+        for (String val : Arrays.asList(activity.getResources().getStringArray(R.array.languages)))
+            arrayAdapter.add(val);
+        builderSingle.setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (arrayAdapter.getItem(which)) {
+                    case "Türkçe":
+                    case "Turkish":
+                        Utilities.changeLanguage(activity, "tr");
+                        break;
+                    case "English":
+                    case "İngilizce":
+                        Utilities.changeLanguage(activity, "en");
+                        break;
+                }
+                dialog.dismiss();
+            }
+        });
+        builderSingle.show();
     }
 }

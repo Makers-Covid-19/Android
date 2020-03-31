@@ -64,6 +64,7 @@ public class MajorPhonesAdapter extends RecyclerView.Adapter {
         vh.title.setText(item.getName());
         vh.content.setText(item.getCategory().getName());
         vh.parent.setOnClickListener((View v) -> Utilities.callPhone(context, item.getPhone()));
+        vh.parent.setOnLongClickListener((View v) -> Utilities.clipboardCopy(context,item.getPhone()));
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

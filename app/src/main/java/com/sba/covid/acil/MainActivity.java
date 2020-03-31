@@ -9,13 +9,17 @@ package com.sba.covid.acil;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -29,7 +33,10 @@ import com.sba.covid.acil.api.model.main.MainPhones;
 import com.sba.covid.acil.helpers.Constants;
 import com.sba.covid.acil.helpers.core.BaseActivity;
 import com.sba.covid.acil.helpers.core.MyFragmentManager;
+import com.sba.covid.acil.helpers.utilities.Utilities;
 import com.sba.covid.acil.scenes.phone.HomeFragment;
+
+import java.util.Locale;
 
 public class MainActivity extends BaseActivity implements MyFragmentManager, FragmentManager.OnBackStackChangedListener {
 
@@ -42,6 +49,11 @@ public class MainActivity extends BaseActivity implements MyFragmentManager, Fra
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         //bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorSplash, this.getTheme()));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorSplash));
+        }
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {

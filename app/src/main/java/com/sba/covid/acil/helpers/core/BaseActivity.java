@@ -9,6 +9,7 @@ package com.sba.covid.acil.helpers.core;
 import android.os.Bundle;
 
 import com.sba.covid.acil.helpers.db.tinydb.TinyDB;
+import com.sba.covid.acil.helpers.utilities.Utilities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         TinyDB.dbContext = getApplicationContext();
         tinydb = TinyDB.getInstance();
+        Utilities.updateLanguage(this, tinydb.getString("language"));
     }
 
     @Override

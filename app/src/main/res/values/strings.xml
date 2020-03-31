@@ -17,6 +17,7 @@
     <string name="from">from</string>
     <string name="from_desc_two">Covid-19 Gönüllüsü bir\ngrup developer</string>
     <string name="from_desc_one"></string>
+    <string name="Language">Dil</string>
 
     <string name="whatsapp_hi">Merhaba</string>
     <string name="whatsapp_info">Whatsapp uygulaması yüklü değil.</string>
@@ -37,6 +38,9 @@
     <string name="info_city_context">Lütfen Şehir Seçiniz!</string>
     <string name="selected">Seçiniz</string>
 
-
+    <string-array name="languages">
+        <item>Türkçe</item>
+        <item>İngilizce</item>
+    </string-array>
 
 </resources>
