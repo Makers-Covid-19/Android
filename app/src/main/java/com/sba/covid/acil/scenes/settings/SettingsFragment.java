@@ -51,6 +51,7 @@ public class SettingsFragment extends BaseFragment {
         view = inflater.inflate(R.layout.settings_fragment, container, false);
         ButterKnife.bind(this, view);
         lang = mActivity.tinydb.getString("language");
+        lang = lang.equals("") ? "tr" : lang;
         backButton.setOnClickListener((View v) -> popFragment());
         languageText.setText(lang.equals("tr") ? "Türkçe" : "English");
         githubLink.setImageResource(mActivity.getResources().getIdentifier("ic_github_link_" + lang, "drawable", mActivity.getPackageName()));
