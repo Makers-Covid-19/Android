@@ -34,6 +34,7 @@ import com.sba.covid.acil.api.model.provinces.ProvinceModel;
 import com.sba.covid.acil.helpers.db.tinydb.TinyDB;
 import com.sba.covid.acil.helpers.dialog.DefaultDialog;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -124,6 +125,7 @@ public class Utilities {
             android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
             clipboard.setPrimaryClip(clip);
         }
+        Toasty.info(context, context.getString(R.string.clipboard_info)).show();
         return true;
     }
 
@@ -185,10 +187,18 @@ public class Utilities {
     }
 
     public static void showWhatsApp(Activity activity, String number) {
-        Uri uri = Uri.parse("smsto:" + number);
-        Intent i = new Intent(Intent.ACTION_SENDTO, uri);
-        i.setPackage("com.whatsapp");
-        activity.startActivity(Intent.createChooser(i, ""));
+        PackageManager packageManager = activity.getPackageManager();
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        try {
+            String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + URLEncoder.encode(activity.getString(R.string.whatsapp_hi), "UTF-8");
+            i.setPackage("com.whatsapp");
+            i.setData(Uri.parse(url));
+            if (i.resolveActivity(packageManager) != null) {
+                activity.startActivity(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*Share*/

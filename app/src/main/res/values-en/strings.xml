@@ -38,6 +38,8 @@
     <string name="info_city_context">Please Select a City!</string>
     <string name="selected">Selected</string>
 
+    <string name="clipboard_info">Copied to Clipboard</string>
+
     <string-array name="languages">
         <item>Turkish</item>
         <item>English</item>

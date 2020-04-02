@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/muni_social"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:gravity="center">
 
             <ImageView
@@ -234,6 +235,7 @@
             android:layout_marginRight="30dp"
             android:gravity="center"
             android:text="@string/municipality"
+            android:visibility="gone"
             android:textColor="@color/textColor"
             android:textSize="18dp" />
 

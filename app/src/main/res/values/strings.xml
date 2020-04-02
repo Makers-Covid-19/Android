@@ -38,6 +38,8 @@
     <string name="info_city_context">Lütfen Şehir Seçiniz!</string>
     <string name="selected">Seçiniz</string>
 
+    <string name="clipboard_info">Panoya Kopyalandı</string>
+
     <string-array name="languages">
         <item>Türkçe</item>
         <item>İngilizce</item>
