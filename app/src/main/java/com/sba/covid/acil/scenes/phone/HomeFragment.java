@@ -213,6 +213,8 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
                     district.setText(getString(R.string.select_district));
                     requestDistrict = new DistrictRequest(HomeFragment.this, mFragmentManager);
                     requestDistrict.request(Integer.parseInt(selectCityId));
+                    request = new MainPhonesRequest(HomeFragment.this, mFragmentManager);
+                    request.request(Integer.valueOf(selectCityId));
                 } else {
                     selectDistrictId = mActivity.tinydb.getListDistrict(selectCityId).get(selectDistrictItemId).getId() + "";
                     district.setText(mActivity.tinydb.getListDistrict(selectCityId).get(selectDistrictItemId).getName());

@@ -27,19 +27,23 @@ public class MainPhonesRequest extends MasterAPI {
     ResponseInterface responseInterface;
     MyFragmentManager myFragmentManager;
     private String url = APIConstants.PHONES;
-    private String districtId = "";
+    private String id = "";
 
     public MainPhonesRequest(ResponseInterface responseInterface, MyFragmentManager myFragmentManager) {
         this.responseInterface = responseInterface;
         this.myFragmentManager = myFragmentManager;
     }
 
-    public void request(int districtId) {
-        if (checkRequest(tinyDB.getLong(Constants.PHONE_REQUEST_LAST_TIME + districtId, 0)) && myFragmentManager.isOnline() && districtId != 0) {
-            this.districtId = districtId + "";
+    public void request(int id) {
+        if (checkRequest(tinyDB.getLong(Constants.PHONE_REQUEST_LAST_TIME + id, 0)) && myFragmentManager.isOnline() && id != 0) {
+            this.id = id + "";
             myFragmentManager.showProgress();
             HashMap<String, String> params = new HashMap<>();
-            params.put("district_id", districtId + "");
+            if (id > 100) { //todo unreasonable solution
+                params.put("district_id", id + "");
+            } else {
+                params.put("province_id", id + "");
+            }
             scRestManager.get(url, params, url, newsRequest);
         } else {
             myFragmentManager.hideProgress();
@@ -57,7 +61,7 @@ public class MainPhonesRequest extends MasterAPI {
                 try {
                     String json = new JSONObject(response).getString("data");
                     MainPhones model = new Gson().fromJson(json, MainPhones.class);
-                    tinyDB.putListHomePhone(model, districtId);
+                    tinyDB.putListHomePhone(model, id);
                     tinyDB.putLong(Constants.PHONE_REQUEST_LAST_TIME, error.getTimesTamp());
                     responseInterface.success(model);
                 } catch (Exception e) {

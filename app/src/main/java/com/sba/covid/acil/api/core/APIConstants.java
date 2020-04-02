@@ -8,7 +8,7 @@ package com.sba.covid.acil.api.core;
 
 public class APIConstants {
 
-    public static String BASE_URL = "https://rocky-reef-05857.herokuapp.com/api/v0/";
+    public static String BASE_URL = "https://api.covidacil.com/api/v0/";
 
     //provinces
     public static String PROVINCES = BASE_URL + "provinces";
