@@ -11,6 +11,8 @@ import android.os.Bundle;
 import com.mobilegion.sba.acil.numaralar.helpers.db.tinydb.TinyDB;
 import com.mobilegion.sba.acil.numaralar.helpers.utilities.Utilities;
 
+import java.util.Locale;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         TinyDB.dbContext = getApplicationContext();
         tinydb = TinyDB.getInstance();
+        if(tinydb.getString("language").equals(""))
+            tinydb.putString("language",Locale.getDefault().getLanguage());
         Utilities.updateLanguage(this, tinydb.getString("language"));
     }
 
