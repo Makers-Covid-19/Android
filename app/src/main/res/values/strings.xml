@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Covid Acil</string>
-    <string name="app_share">Covid Acil Uygulaması: https://play.google.com/store/apps/details?id=com.sba.covid.acil</string>
+    <string name="app_name">Acil Numaralar</string>
+    <string name="app_share">Acil Numaralar uygulaması: https://play.google.com/store/apps/details?id=com.mobilegion.sba.acil.numaralar</string>
 
     <string name="phones">Numaralar</string>
     <string name="global_phones">Ülke Geneli</string>
@@ -9,13 +9,12 @@
     <string name="nav_my_contacts">Rehberim</string>
     <string name="nav_settings">Ayarlar</string>
 
-    <string name="recommend_to_friends">Arkadaşlarına bizi tavsiye edin</string>
-    <string name="notification_setting">Bildirim Ayarları</string>
+    <string name="recommend_to_friends">Arkadaşlarınıza bizi tavsiye edin</string>
+    <string name="notification_setting">Bildirim</string>
     <string name="fallow">TAKİP EDİN</string>
     <string name="context">Ayvalık Yerel İnsiyatif</string>
     <string name="municipality">Belediye</string>
     <string name="from">from</string>
-    <string name="from_desc_two">Covid-19 Gönüllüsü bir\ngrup developer</string>
     <string name="from_desc_one"></string>
     <string name="Language">Dil</string>
 
