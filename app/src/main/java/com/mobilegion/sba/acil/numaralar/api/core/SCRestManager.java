@@ -50,6 +50,20 @@ public class SCRestManager {
                 .getAsString(srl);
     }
 
+    public void put(String url, HashMap<String, Object> params, String TAG, StringRequestListener srl) {
+
+        JSONObject json = JsonUtils.mapToJson(params);
+        HashMap<String, String> headers = requestHeader(TAG);
+
+        AndroidNetworking.put(url)
+                .addJSONObjectBody(json)
+                .addHeaders(headers)
+                .setTag(TAG)
+                .setPriority(Priority.IMMEDIATE)
+                .build()
+                .getAsString(srl);
+    }
+
     public void post(String url, File file, StringRequestListener srl) {
 
         HashMap<String, String> headers = requestHeader("");

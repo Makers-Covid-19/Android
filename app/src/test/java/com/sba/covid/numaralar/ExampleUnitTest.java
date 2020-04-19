@@ -1,4 +1,4 @@
-package com.sba.covid.acil;
+package com.mobilegion.sba.acil.numaralar;
 
 import org.junit.Test;
 

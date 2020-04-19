@@ -1,4 +1,4 @@
-package com.sba.covid.acil;
+package com.mobilegion.sba.acil.numaralar;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.sba.covid.acil", appContext.getPackageName());
+        assertEquals("com.mobilegion.sba.acil.numaralar", appContext.getPackageName());
     }
 }

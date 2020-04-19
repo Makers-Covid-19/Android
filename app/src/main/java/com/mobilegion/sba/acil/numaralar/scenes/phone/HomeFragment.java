@@ -37,7 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
-public class HomeFragment extends BaseFragment implements ResponseInterface {
+public class HomeFragment extends BaseFragment implements ResponseInterface, myOnClick {
 
     @BindView(R.id.rv_major_phones) public RecyclerView rvMajorPhones;
     @BindView(R.id.rv_public_phones) public RecyclerView rvPhones;
@@ -132,13 +132,13 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
 
     public void setAdapterPublicPhones() {
         if (mActivity.tinydb.getListHomePhone(selectDistrictId).getPublicPhones() != null) {
-            adapterPublicPhones = new PublicPhonesAdapter(view.getContext(), mFragmentManager, mActivity.tinydb.getListHomePhone(selectDistrictId).getPublicPhones());
+            adapterPublicPhones = new PublicPhonesAdapter(view.getContext(), this, mActivity.tinydb.getListHomePhone(selectDistrictId).getPublicPhones());
             if (adapterPublicPhones.getItemCount() == 0) {
                 phonesTitle.setVisibility(View.GONE);
             } else {
                 phonesTitle.setVisibility(View.VISIBLE);
             }
-            adapterGlobalPhones = new GlobalPhonesAdapter(view.getContext(), mFragmentManager, mActivity.tinydb.getListHomePhone(selectDistrictId).getGlobalPhones());
+            adapterGlobalPhones = new GlobalPhonesAdapter(view.getContext(), this, mActivity.tinydb.getListHomePhone(selectDistrictId).getGlobalPhones());
             rvPhones.setItemAnimator(new DefaultItemAnimator());
             rvPhones.setAdapter(adapterPublicPhones);
         }
@@ -146,7 +146,7 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
 
     public void setAdapterGlobalPhones() {
         if (mActivity.tinydb.getListHomePhone(selectDistrictId).getGlobalPhones() != null) {
-            adapterGlobalPhones = new GlobalPhonesAdapter(view.getContext(), mFragmentManager, mActivity.tinydb.getListHomePhone(selectDistrictId).getGlobalPhones());
+            adapterGlobalPhones = new GlobalPhonesAdapter(view.getContext(), this, mActivity.tinydb.getListHomePhone(selectDistrictId).getGlobalPhones());
             rvGlobalPhones.setItemAnimator(new DefaultItemAnimator());
             rvGlobalPhones.setAdapter(adapterGlobalPhones);
         }
@@ -154,7 +154,7 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
 
     public void showDialog(boolean distrrictDialog) {
         if (distrrictDialog && selectCityId.equals("-1")) {
-            Toasty.info(getContext(),getString(R.string.info_city_context)).show();
+            Toasty.info(getContext(), getString(R.string.info_city_context)).show();
             return;
         }
         String[] list;
@@ -183,20 +183,11 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
             }
             checkedItem = selectDistrictItemId;
         }
-        builder.setSingleChoiceItems(list, checkedItem, new DialogInterface.OnClickListener() {
+        builder.setItems(list, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!distrrictDialog) { //selectCity
                     selectCityItemId = which;
-                } else {
-                    selectDistrictItemId = which;
-                }
-            }
-        });
-        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (!distrrictDialog) { //selectCity
                     selectCityId = mActivity.tinydb.getListCity().get(selectCityItemId + 1).getId() + "";
                     city.setText(mActivity.tinydb.getListCity().get(selectCityItemId + 1).getName());
                     selectDistrictId = "-1";
@@ -207,6 +198,7 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
                     request = new MainPhonesRequest(HomeFragment.this, mFragmentManager);
                     request.request(Integer.valueOf(selectCityId));
                 } else {
+                    selectDistrictItemId = which;
                     selectDistrictId = mActivity.tinydb.getListDistrict(selectCityId).get(selectDistrictItemId).getId() + "";
                     district.setText(mActivity.tinydb.getListDistrict(selectCityId).get(selectDistrictItemId).getName());
                     mActivity.tinydb.putString(Constants.SELECT_CITY, (selectCityItemId + 1) + "");
@@ -226,18 +218,25 @@ public class HomeFragment extends BaseFragment implements ResponseInterface {
         if (obj != null) {
             if (obj instanceof MainPhones) {
                 setAdapters();
-            } else if (obj != null && obj instanceof ArrayList<?>) {
+            } else if (obj instanceof ArrayList<?>) {
                 setCityAndDistrictList();
+            } else if (obj instanceof String) {
+                Toasty.info(view.getContext(), getString(R.string.success_response)).show();
             }
         }
     }
 
     @Override
     public void error(Object obj) {
-//        if (obj.equals("connectionError")) {
-//            DefaultDialog.showNetworkDialog(getContext());
-//        }
+        if (obj != null)
+            return;
+        Toasty.info(view.getContext(), getString(R.string.error_response)).show();
     }
 
 
+    @Override
+    public void misreportingOnClick(Long phoneId) {
+        MainPhonesRequest request = new MainPhonesRequest(this, mFragmentManager);
+        request.request(phoneId);
+    }
 }

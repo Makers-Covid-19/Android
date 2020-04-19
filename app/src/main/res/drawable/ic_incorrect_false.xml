@@ -1,0 +1,12 @@
+<!--
+  ~  * Created by Serhat Bekir AK on 17.04.2020 21:49
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  * Last modified 17.04.2020 21:49
+  -->
+
+<vector android:height="20dp" android:viewportHeight="18"
+    android:viewportWidth="18" android:width="20dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#979797" android:pathData="M9,12C8.5858,12 8.25,11.6642 8.25,11.25V6C8.25,5.5858 8.5858,5.25 9,5.25C9.4142,5.25 9.75,5.5858 9.75,6V11.25C9.75,11.6642 9.4142,12 9,12Z"/>
+    <path android:fillColor="#979797" android:pathData="M9,14.25C9.4142,14.25 9.75,13.9142 9.75,13.5C9.75,13.0858 9.4142,12.75 9,12.75C8.5858,12.75 8.25,13.0858 8.25,13.5C8.25,13.9142 8.5858,14.25 9,14.25Z"/>
+    <path android:fillColor="#979797" android:fillType="evenOdd" android:pathData="M2.07,17.25H15.93C16.196,17.2542 16.4442,17.1172 16.5825,16.89L17.8875,14.64C18.0215,14.408 18.0215,14.1221 17.8875,13.89L10.9575,1.14C10.8256,0.8989 10.5724,0.7493 10.2975,0.75H7.7025C7.4335,0.7489 7.1845,0.892 7.05,1.125L0.12,13.875C-0.014,14.1071 -0.014,14.393 0.12,14.625L1.425,16.875C1.5582,17.1057 1.8037,17.2484 2.07,17.25ZM15.495,15.75H2.505L1.635,14.25L8.145,2.25H9.855L16.365,14.25L15.495,15.75Z"/>
+</vector>

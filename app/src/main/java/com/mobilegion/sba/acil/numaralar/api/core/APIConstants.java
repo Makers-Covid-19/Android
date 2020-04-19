@@ -16,5 +16,7 @@ public class APIConstants {
     public static String DISTRICTS = BASE_URL + "districts";
     //phones
     public static String PHONES = BASE_URL + "phones/id";
+    //
+    public static String UNREQUIRED_PHONE = BASE_URL + "phones/unrequitedNumber";
 
 }

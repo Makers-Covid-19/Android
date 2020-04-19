@@ -28,6 +28,8 @@
     <string name="ok">Tamam</string>
     <string name="cancel">Vazgeç</string>
 
+    <string name="version">Versiyon</string>
+
     <string name="show_permission">İzinleri Aç</string>
     <string name="permission_title">Erişim İzniniz Açık Değil</string>
     <string name="permission_info">İşlemi gerçekleştirmek için gerekli izinleri vermelisiniz.</string>
@@ -38,6 +40,12 @@
     <string name="selected">Seçiniz</string>
 
     <string name="clipboard_info">Panoya Kopyalandı</string>
+
+    <string name="report_text">Hatalı numara bildir</string>
+    <string name="report">Bildir</string>
+
+    <string name="error_response">Başarısız</string>
+    <string name="success_response">Başarılı</string>
 
     <string-array name="languages">
         <item>Türkçe</item>

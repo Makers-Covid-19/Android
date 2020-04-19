@@ -66,7 +66,7 @@ public class TinyDB {
     }
 
     /**
-     * Covid Acil
+     * Acil Numaralar
      * Methods used for application.
      *
      * @methods putListHomePhone, getListHomePhone

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,12 +29,12 @@ import butterknife.ButterKnife;
 public class GlobalPhonesAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private MyFragmentManager myFragmentManager;
+    private myOnClick myOnClick;
     private ArrayList<MainPhones.Phone> globalPhoneList;
 
-    public GlobalPhonesAdapter(Context context, MyFragmentManager myFragmentManager, ArrayList<MainPhones.Phone> dataSet) {
+    public GlobalPhonesAdapter(Context context, myOnClick myOnClick, ArrayList<MainPhones.Phone> dataSet) {
         this.context = context;
-        this.myFragmentManager = myFragmentManager;
+        this.myOnClick = myOnClick;
         this.globalPhoneList = dataSet;
     }
 
@@ -62,6 +63,7 @@ public class GlobalPhonesAdapter extends RecyclerView.Adapter {
         vh.title.setText(item.getName());
         vh.content.setText(item.getCategory().getName());
         vh.parent.setOnClickListener((View v) -> Utilities.callPhone(context, item.getPhone()));
+        vh.misreporting.setOnClickListener((View v) -> Utilities.Misreporting(context,item.getId(),item.getPhone(),myOnClick));
         vh.parent.setOnLongClickListener((View v) -> Utilities.clipboardCopy(context,item.getPhone()));
     }
 
@@ -71,6 +73,7 @@ public class GlobalPhonesAdapter extends RecyclerView.Adapter {
         @BindView(R.id.title) TextView title;
         @BindView(R.id.content) TextView content;
         @BindView(R.id.parent) RelativeLayout parent;
+        @BindView(R.id.misreporting) ImageView misreporting;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);

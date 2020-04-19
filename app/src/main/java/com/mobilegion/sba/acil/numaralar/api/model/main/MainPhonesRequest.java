@@ -25,17 +25,21 @@ public class MainPhonesRequest extends MasterAPI {
     MyFragmentManager myFragmentManager;
     private String url = APIConstants.PHONES;
     private String id = "";
+    private HashMap<String, String> params;
+    private Boolean unrequired;
 
     public MainPhonesRequest(ResponseInterface responseInterface, MyFragmentManager myFragmentManager) {
         this.responseInterface = responseInterface;
         this.myFragmentManager = myFragmentManager;
+        params = new HashMap<>();
     }
 
     public void request(int id) {
+        unrequired = false;
         if (checkRequest(tinyDB.getLong(Constants.PHONE_REQUEST_LAST_TIME + id, 0)) && myFragmentManager.isOnline() && id != 0) {
             this.id = id + "";
             myFragmentManager.showProgress();
-            HashMap<String, String> params = new HashMap<>();
+            params = new HashMap<>();
             if (id > 100) { //todo unreasonable solution
                 params.put("district_id", id + "");
             } else {
@@ -48,13 +52,22 @@ public class MainPhonesRequest extends MasterAPI {
         }
     }
 
+    public void request(long phoneId) {
+        unrequired = true;
+        myFragmentManager.showProgress();
+        scRestManager.put(APIConstants.UNREQUIRED_PHONE + "/" + phoneId, new HashMap<>(), APIConstants.UNREQUIRED_PHONE, newsRequest);
+    }
+
     StringRequestListener newsRequest = new StringRequestListener() {
         @Override
         public void onResponse(String response) {
-            //response = "{\"httpStatus\":\"OK\",\"timestamp\":\"2020-03-28T00:35:33.3426992\",\"message\":\"succes\",\"data\":{\"majorPhones\":[{\"id\":32,\"name\":\"SMO\",\"category\":{\"id\":1,\"name\":\"Manav\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":{\"id\":1161,\"name\":\"AYVALIK\"},\"phone\":\"05425287131\"},{\"id\":25,\"name\":\"Büyükşehir Belediye\",\"category\":{\"id\":0,\"name\":\"Tüm ihtiyaçlar\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":null,\"phone\":\"4441066\"}],\"publicPhones\":[{\"id\":33,\"name\":\"SMO\",\"category\":{\"id\":1,\"name\":\"Manav\"},\"neighborhood\":null,\"province\":{\"id\":10,\"name\":\"BALIKESİR\",\"hibernateLazyInitializer\":{}},\"district\":{\"id\":1161,\"name\":\"AYVALIK\"},\"phone\":\"05442926812\"}],\"globalPhones\":[{\"id\":28,\"name\":\"Jandarma\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"156\"},{\"id\":29,\"name\":\"Corona Danışma Hattı\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"184\"},{\"id\":26,\"name\":\"Ambulans\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"112\"},{\"id\":27,\"name\":\"Polis\",\"category\":{\"id\":4,\"name\":\"Koordinasyon\"},\"neighborhood\":null,\"province\":{\"id\":0,\"name\":\"Ülke Geneli\"},\"district\":null,\"phone\":\"155\"}]}}";
             myFragmentManager.hideProgress();
             ResponseError error = new Gson().fromJson(response, ResponseError.class);
             if (error.isSuccess()) {
+                if (unrequired) {
+                    responseInterface.success("SUCCESS");
+                    return;
+                }
                 try {
                     String json = new JSONObject(response).getString("data");
                     MainPhones model = new Gson().fromJson(json, MainPhones.class);

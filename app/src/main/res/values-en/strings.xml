@@ -28,6 +28,8 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
 
+    <string name="version">Version</string>
+
     <string name="show_permission">Open Permissions</string>
     <string name="permission_title">Your Access Is Not Open</string>
     <string name="permission_info">You must grant the necessary permissions to perform the transaction.</string>
@@ -38,6 +40,12 @@
     <string name="selected">Selected</string>
 
     <string name="clipboard_info">Copied to Clipboard</string>
+
+    <string name="report_text">Report a wrong number</string>
+    <string name="report">Report</string>
+
+    <string name="error_response">Başarısız</string>
+    <string name="success_response">Başarılı</string>
 
     <string-array name="languages">
         <item>Turkish</item>

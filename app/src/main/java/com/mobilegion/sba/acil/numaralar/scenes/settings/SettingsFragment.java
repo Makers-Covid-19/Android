@@ -14,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mobilegion.sba.acil.numaralar.BuildConfig;
 import com.mobilegion.sba.acil.numaralar.R;
 import com.mobilegion.sba.acil.numaralar.helpers.core.BaseFragment;
 import com.mobilegion.sba.acil.numaralar.helpers.dialog.DefaultDialog;
 import com.mobilegion.sba.acil.numaralar.helpers.utilities.Utilities;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +34,7 @@ public class SettingsFragment extends BaseFragment {
     @BindView(R.id.whatsapp) public ImageView whatsapp;
     @BindView(R.id.muni_whatsapp) public ImageView muni_whatsapp;
     @BindView(R.id.backButton) public ImageView backButton;
-    @BindView(R.id.github_link) public ImageView githubLink;
+    @BindView(R.id.github_link) public TextView githubLink;
     @BindView(R.id.share) public RelativeLayout shareButton;
     @BindView(R.id.language) public RelativeLayout language;
     @BindView(R.id.language_text) public TextView languageText;
@@ -52,7 +55,10 @@ public class SettingsFragment extends BaseFragment {
         lang = lang.equals("") ? "tr" : lang;
         backButton.setOnClickListener((View v) -> popFragment());
         languageText.setText(lang.equals("tr") ? "Türkçe" : "English");
-        githubLink.setImageResource(mActivity.getResources().getIdentifier("ic_github_link_" + lang, "drawable", mActivity.getPackageName()));
+        githubLink.setText(getString(R.string.version)+" "+ BuildConfig.VERSION_NAME);
+
+
+        //githubLink.setImageResource(mActivity.getResources().getIdentifier("ic_github_link_" + lang, "drawable", mActivity.getPackageName()));
 
         muni_whatsapp.setOnClickListener((View v) -> Utilities.showWhatsApp(mActivity, "905326682864"));
         muni_facebook.setOnClickListener((View v) -> Utilities.showFacebook(mActivity, "AyvalikBelediyesi", ""));

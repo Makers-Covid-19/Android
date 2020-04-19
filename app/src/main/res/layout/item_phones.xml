@@ -48,14 +48,22 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="15dp"
+        android:layout_toStartOf="@+id/misreporting"
+        android:layout_toLeftOf="@+id/misreporting"
         android:gravity="center"
         android:text="0505 806 77 14"
         android:textColor="@color/textColor"
         android:textSize="17dp" />
 
+    <ImageView
+        android:id="@+id/misreporting"
+        android:layout_width="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_incorrect_false"/>
 
 </RelativeLayout>

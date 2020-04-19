@@ -19,6 +19,7 @@ public class BaseFragment extends Fragment {
     public BaseActivity mActivity;
     protected SCRestManager SC_Request;
     protected MyFragmentManager mFragmentManager;
+    private String a ="";
 
     @Override
     public void onAttach(@NonNull Activity context) {

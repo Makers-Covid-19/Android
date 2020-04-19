@@ -8,13 +8,16 @@ package com.mobilegion.sba.acil.numaralar.helpers.utilities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -27,10 +30,14 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.mobilegion.sba.acil.numaralar.R;
+import com.mobilegion.sba.acil.numaralar.api.core.ResponseInterface;
 import com.mobilegion.sba.acil.numaralar.api.model.districts.DistrictModel;
+import com.mobilegion.sba.acil.numaralar.api.model.main.MainPhonesRequest;
 import com.mobilegion.sba.acil.numaralar.api.model.provinces.ProvinceModel;
+import com.mobilegion.sba.acil.numaralar.helpers.core.MyFragmentManager;
 import com.mobilegion.sba.acil.numaralar.helpers.db.tinydb.TinyDB;
 import com.mobilegion.sba.acil.numaralar.helpers.dialog.DefaultDialog;
+import com.mobilegion.sba.acil.numaralar.scenes.phone.myOnClick;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -41,36 +48,29 @@ import es.dmoral.toasty.Toasty;
 public class Utilities {
 
     public static void loadImage(Context context, String url, ImageView holderImage) {
-        Glide.with(context)
-                .applyDefaultRequestOptions(new RequestOptions()
-                        .placeholder(R.mipmap.ic_launcher)
-                        .error(R.mipmap.ic_launcher))
-                .load(url)
-                .into(holderImage);
+        Glide.with(context).applyDefaultRequestOptions(new RequestOptions().placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher)).load(url).into(holderImage);
     }
 
     public static void callPhone(Context context, String phone) {
-        Dexter.withActivity((Activity) context)
-                .withPermission(Manifest.permission.CALL_PHONE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
-                        context.startActivity(intent);
-                    }
+        Dexter.withActivity((Activity) context).withPermission(Manifest.permission.CALL_PHONE).withListener(new PermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse response) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                context.startActivity(intent);
+            }
 
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        if (response.isPermanentlyDenied()) {
-                            DefaultDialog.permissionsCallPhoneDialog(context);
-                        }
-                    }
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse response) {
+                if (response.isPermanentlyDenied()) {
+                    DefaultDialog.permissionsCallPhoneDialog(context);
+                }
+            }
 
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                token.continuePermissionRequest();
+            }
+        }).check();
     }
 
     public static int getDrawableByName(Context context, int type) {
@@ -122,6 +122,25 @@ public class Utilities {
         }
         Toasty.info(context, context.getString(R.string.clipboard_info)).show();
         return true;
+    }
+
+    public static void Misreporting(Context context, Long phoneId, String phone, myOnClick myOnClick) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(phone);
+        builder.setMessage(context.getResources().getString(R.string.report_text));
+        builder.setPositiveButton(context.getResources().getString(R.string.report), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                myOnClick.misreportingOnClick(phoneId);
+            }
+        });
+        builder.setNegativeButton(context.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 
     public static void changeLanguage(Activity mActivity, String lang) {
