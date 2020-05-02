@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Emergency Numbers</string>
-    <string name="app_share">Emergency Numbers Application: https://play.google.com/store/apps/details?id=com.mobilegion.sba.acil.numaralar</string>
+    <string name="app_share">Emergency Numbers Application: https://play.google.com/store/apps/details?id=com.mobilegion.acil.numaralar</string>
 
     <string name="phones">Local Numbers</string>
     <string name="global_phones">General Numbers</string>
@@ -44,8 +44,8 @@
     <string name="report_text">Report a wrong number</string>
     <string name="report">Report</string>
 
-    <string name="error_response">Başarısız</string>
-    <string name="success_response">Başarılı</string>
+    <string name="error_response">Fail</string>
+    <string name="success_response">Success</string>
 
     <string-array name="languages">
         <item>Turkish</item>
